@@ -1,4 +1,5 @@
 #include "reverse_lib.h"
+#include <algorithm>
 
 // Helper to convert jstring to std::string
 static std::string jstringToStdString(JNIEnv* env, jstring jstr) {
