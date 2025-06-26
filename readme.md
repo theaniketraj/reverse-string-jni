@@ -35,23 +35,23 @@ reverse-string-jni/
 
 ## Build & Run
 
-1. **Build native library**
+### 1. Build the native library
 
-   ```bash
-   cd native
-   mkdir build && cd build
-   cmake -G "MinGW Makefiles" ..   # Or use your platform's generator
-   cmake --build .
-   ```
+```bash
+cd native
+mkdir build && cd build
+cmake -G "MinGW Makefiles" ..   # Or use your platform's generator
+cmake --build .
+```
 
-2. **Run Kotlin app**
+### 2. Run the Kotlin app
 
-   ```bash
-   cd ../../kotlin
-   ./gradlew run
-   ```
+```bash
+cd ../../kotlin
+./gradlew run
+```
 
-Output:
+**Example Output:**
 
 ```pgsql
 Original: Hello JNI
@@ -60,11 +60,9 @@ Reversed: INJ olleH
 
 ## Testing
 
-To verify correct functionality and perform further tests:
+### Unit Test (Kotlin side)
 
-- Unit Test (Kotlin side)
-
-Add a simple JUnit test in kotlin/src/test/kotlin/com/example/ReverseLibTest.kt:
+Add a simple JUnit test in `kotlin/src/test/kotlin/com/example/ReverseLibTest.kt`:
 
 ```kotlin
 package com.example
@@ -82,9 +80,9 @@ class ReverseLibTest {
 }
 ```
 
-Run:
+Run the test:
 
-```kotlin
+```bash
 cd kotlin
 ./gradlew test
 ```
@@ -97,12 +95,56 @@ Modify `Main.kt` to reverse other strings and confirm the console output.
 
 ### Logging
 
-- In C++ (`reverse_lib.cpp`), add *std::cout* statements before and after reversal to trace behavior.
-
+- In C++ (`reverse_lib.cpp`), add `std::cout` statements before and after reversal to trace behavior.
 - Rebuild and rerun to see logs in the terminal.
 
-- These steps ensure the native library is properly built, loaded, and that JNI bridging works as expected.
+These steps ensure the native library is properly built, loaded, and that JNI bridging works as expected.
+
+## Troubleshooting
+
+### `cmake: command not found`
+
+If you see:
+
+```bash
+bash: cmake: command not found
+```
+
+Your terminal cannot locate the cmake executable. Try the following:
+
+#### 1. Install CMake
+
+- **Windows:** Download and run the installer from [cmake.org](https://cmake.org/download/) and select "Add CMake to the system PATH".
+- **macOS:**
+  
+  ```bash
+  brew install cmake
+  ```
+
+- **Linux (Ubuntu/Debian):**
+  
+  ```bash
+  sudo apt update
+  sudo apt install cmake
+  ```
+
+#### 2. Restart your terminal so that the updated PATH takes effect
+
+#### 3. Verify installation
+
+```bash
+cmake --version
+```
+
+You should see the version details.
+
+#### 4. Re-run the build
+
+```bash
+cd native/build
+cmake --build .
+```
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](https://github.com/theaniketraj/reverse-string-jni/blob/main/LICENSE)
