@@ -58,6 +58,51 @@ Original: Hello JNI
 Reversed: INJ olleH
 ```
 
+## Testing
+
+To verify correct functionality and perform further tests:
+
+- Unit Test (Kotlin side)
+
+Add a simple JUnit test in kotlin/src/test/kotlin/com/example/ReverseLibTest.kt:
+
+```kotlin
+package com.example
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class ReverseLibTest {
+    @Test
+    fun testReverseString() {
+        System.loadLibrary("reverse_jni")
+        val lib = ReverseLib()
+        assertEquals("olleh", lib.reverseString("hello"))
+    }
+}
+```
+
+Run:
+
+```kotlin
+cd kotlin
+./gradlew test
+```
+
+### Manual Testing
+
+Launch the app as above (`./gradlew run`) with different inputs in `Main.kt`.
+
+Modify `Main.kt` to reverse other strings and confirm the console output.
+
+### Logging
+
+- In C++ (`reverse_lib.cpp`), add *std::cout* statements before and after reversal to trace behavior.
+
+- Rebuild and rerun to see logs in the terminal.
+
+- These steps ensure the native library is properly built, loaded, and that JNI bridging works as expected.
+
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
